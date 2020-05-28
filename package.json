@@ -6,11 +6,9 @@
   "author": "David Horak <info@davidhorak.com>",
   "license": "MIT",
   "scripts": {
-    "build:dev": "webpack --mode=development && npm run build:html:dev",
-    "build:prod": "webpack --mode=production && npm run build:html:prod",
-    "build:html:dev": "pug -P -o ./ -O \"{prod:false, baseURL:''}\" src/html/index.pug",
-    "build:html:prod": "pug -P -o ./publish/ -O \"{prod:true, baseURL:''}\" src/html/index.pug",
-    "start": "npm run build:html:dev && webpack-dev-server --mode=development --open"
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production",
+    "start": "webpack-dev-server --mode=development --open"
   },
   "repository": {
     "type": "git",
@@ -37,17 +35,29 @@
     "eslint": "^6.5.1",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-svelte3": "^2.7.3",
+    "file-loader": "^6.0.0",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.12.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "pug": "^2.0.4",
     "sass-loader": "^8.0.0",
     "svelte": "^3.12.1",
     "svelte-loader": "^2.13.6",
     "svelte-preprocess": "^3.1.2",
     "terser-webpack-plugin": "^2.1.3",
+    "url-loader": "^0.5.8",
     "webpack": "^4.38.0",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.2"
+  },
+  "dependencies": {
+    "@nimiq/hub-api": "^1.2.3",
+    "axios": "^0.19.2",
+    "bitcoinjs-lib": "^5.1.9",
+    "public-address-validator": "^0.2.4",
+    "qr-creator": "^1.0.0",
+    "qr-scanner": "^1.1.1",
+    "socket.io-client": "^2.3.0",
+    "svelte-loading-spinners": "0.0.19",
+    "sweetalert": "^2.1.0"
   }
 }

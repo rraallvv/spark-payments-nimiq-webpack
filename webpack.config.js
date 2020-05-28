@@ -9,7 +9,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 // Project setup
 const svelteOptions = require('./svelte.config.js');
-const extensions = ['.mjs', '.js', '.svelte', '.html'];
+const extensions = ['.mjs', '.js', '.svelte', '.html', '.json'];
 const mainFields = ['svelte', 'browser', 'module', 'main'];
 // Base URL is passed to JS and SCSS
 // update as needed for production.
@@ -21,8 +21,7 @@ module.exports = (env, options) => {
   const DEVELOPMENT = options.mode === 'development';
   return {
     entry: {
-      app: './src/js/index.js',
-      base: './src/scss/base.scss',
+      app: './src/js/index.js'
     },
     resolve: {
       mainFields,
@@ -94,6 +93,10 @@ module.exports = (env, options) => {
               },
             },
           ],
+        },
+        {
+          test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+          loader: 'url-loader'
         },
       ],
     },
