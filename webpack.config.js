@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // Project setup
 const svelteOptions = require('./svelte.config.js');
@@ -104,24 +105,29 @@ module.exports = (env, options) => {
     plugins: [
       new MiniCssExtractPlugin({
         filename: DEVELOPMENT
-          ? 'dev/css/[name].css'
-          : 'publish/dist/css/[name].min.css',
+          ? 'css/[name].css'
+          : 'css/[name].min.css',
       }),
       new webpack.DefinePlugin({
         __BASEURL__: JSON.stringify(baseURL),
       }),
       new CopyPlugin(DEVELOPMENT ? [] : [
-        {from: 'assets', to: 'publish/assets'},
+        {from: 'assets', to: 'assets'},
       ]),
+      new HtmlWebpackPlugin({
+        template: 'index.html'
+      }),
     ],
     output: {
-      path: __dirname,
+      path: path.join(__dirname, DEVELOPMENT
+        ? 'dev'
+        : 'dist'),
       publicPath: '/',
       filename: DEVELOPMENT
-        ? 'dev/js/[name].js'
-        : 'publish/dist/js/[name].min.js',
+        ? 'js/[name].js'
+        : 'js/[name].min.js',
       sourceMapFilename: DEVELOPMENT
-        ? 'dev/js/[name].map'
+        ? 'js/[name].map'
         : '',
     },
     devServer: {
