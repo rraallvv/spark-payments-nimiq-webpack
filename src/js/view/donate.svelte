@@ -1,4 +1,4 @@
-<form autocomplete='off'>
+<form autocomplete='off' in:fly={{x:20, duration: 500}}>
   <p>{language.donate}</p>
   <!-- amount display -->
   <input bind:value={price} id="donate-box" on:mousedown={noSelect} on:input={setTwoNumberDecimal} on:click={moveCursor} bind:this={input} type='text' class='input pad'>
@@ -106,6 +106,7 @@
 </form>
 
 <script>
+  import {fly} from 'svelte/transition';
   import swal from 'sweetalert';
   import {router} from '@spaceavocado/svelte-router';
   import translations from '../../../assets/lang.json';

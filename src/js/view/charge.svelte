@@ -1,4 +1,4 @@
-<form autocomplete='off'>
+<form autocomplete='off' in:fly={{x:20, duration: 500}}>
   <!-- amount display -->
   <input value={price} type='text' class='input pad' disabled>
   <br>
@@ -24,6 +24,7 @@
 </form>
 
 <script>
+  import {fly} from 'svelte/transition';
   import translations from '../../../assets/lang.json';
   import {router} from '@spaceavocado/svelte-router';
   import {settings} from '../store/settings';

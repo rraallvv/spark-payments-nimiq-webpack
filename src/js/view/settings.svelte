@@ -1,4 +1,4 @@
-<div>
+<div in:fly={{x:20, duration: 500}}>
   {#if camera}
   <div>
     <div class='video-wrapper'>
@@ -151,6 +151,7 @@
 </div>
 
 <script>
+  import {fly} from 'svelte/transition';
   import swal from 'sweetalert';
   import {validate} from 'public-address-validator';
   import {router} from '@spaceavocado/svelte-router';

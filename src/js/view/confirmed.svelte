@@ -1,4 +1,4 @@
-<div>
+<div in:fly={{x:20, duration: 500}}>
   <br>
   <p>{language.payment_received}&nbsp;
     {#if locked === 'true'}
@@ -18,6 +18,7 @@
 </div>
 
 <script>
+  import {fly} from 'svelte/transition';
   import {router} from '@spaceavocado/svelte-router';
   import translations from '../../../assets/lang.json';
   import * as spark from '../helpers';

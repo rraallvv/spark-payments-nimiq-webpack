@@ -1,4 +1,4 @@
-<div id="container">
+<div id="container" in:fly={{x:20, duration: 500}}>
   {#if !loading}
   <div id="spinner">
     <Circle size="1.225" color="var(--primary)" unit="em"/>
@@ -31,6 +31,7 @@
 </div>
 
 <script>
+  import {fly} from 'svelte/transition';
   import * as spark from '../helpers'
   import axios from 'axios'
   import {router} from '@spaceavocado/svelte-router';

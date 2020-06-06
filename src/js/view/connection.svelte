@@ -1,9 +1,10 @@
-<div id="connection">
+<div id="connection" in:fly={{x:20, duration: 500}}>
   <h1 id='red'>{language.connected}</h1>
   <h1 id='dark'>{language.internet}</h1>
 </div>
 
 <script>
+  import {fly} from 'svelte/transition';
   import {router} from '@spaceavocado/svelte-router';
   import translations from '../../../assets/lang.json';
   import {settings} from '../store/settings';
