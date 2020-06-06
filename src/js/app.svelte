@@ -219,6 +219,7 @@
   --light: #fff;
   --red: #f10032;
   --green: #47cf73;
+  --guides: 60%;
 }
 
 :global(*) {

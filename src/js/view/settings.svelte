@@ -2,17 +2,17 @@
   {#if camera}
   <div>
     <div class='video-wrapper'>
-      {#if guides}
       <div class='guides-area'>
         <div class='guidetl'></div>
         <div class='guidetr'></div>
         <div class='guidebl'></div>
         <div class='guidebr'></div>
       </div>
-      {/if}
-      <video in:videoMounted />
+      <div class='video-crop'>
+        <video in:videoMounted />
+      </div>
     </div>
-    <button style="background: var(--red); border: 1px solid var(--red);" on:click={() => {camera = false, guides = false}}>{language.cancel}</button>
+    <button style="background: var(--red); border: 1px solid var(--red);" on:click={() => camera = false}>{language.cancel}</button>
   </div>
   {:else}
   <form autocomplete='off'>
@@ -164,7 +164,6 @@
   let bitcoin = require('bitcoinjs-lib');
 
   let camera = false;
-  let guides = false;
   let language;
   let languages = $settings.language;
   let pw;
@@ -245,7 +244,6 @@
   }
 
   function videoMounted(video) {
-    video.addEventListener('canplay', () => guides = true);
     const scanner = new QrScanner(video, data => {
       let acct = data
       // if address starts with 'nimiq:' we remove it
@@ -257,7 +255,6 @@
       }
       address = acct
       camera = false
-      guides = false
       console.log(data)
       scanner.destroy()
     });
@@ -417,8 +414,8 @@
 
   .guides-area {
     position: absolute;
-    width: 50%;
-    padding-bottom: 50%;
+    width: var(--guides);
+    padding-bottom: var(--guides);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -428,8 +425,9 @@
   .video-wrapper     {
     box-sizing: border-box;
     width: 100%;
-    height: 100%;
+    height: 27em;
     position: relative;
+    overflow: hidden;
   }
 
   .pw-hidden {
@@ -464,8 +462,22 @@
     height: 1em;
   }
 
-  video {
-    width: 100%;
+  .video-crop {
+    left: 1em;
+    top: 1em;
+    width: calc(100% - 2em);
+    height: calc(100% - 2em);
     position: relative;
+    overflow: hidden;
+    background: black;
+  }
+
+  video {
+    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    left: calc(50% - 50vw);
+    top: calc(50% - 50vh);
   }
 </style>
