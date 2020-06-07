@@ -1,27 +1,15 @@
-# Svelte Router Template
+# Spark Payments (Web and Mobile)
 
-Boilerplate template project for [spaceavocado/svelte-router](https://github.com/spaceavocado/svelte-router) - Simple Svelte Router for Single Page Applications (SPA). 
+Spark Payments is a mobile-friendly payment terminal app for web and mobile that merchants can use to accept Nimiq payments.
 
-## Live Preview
-[https://spaceavocado.github.io/svelte-router-template/](https://spaceavocado.github.io/svelte-router-template/)
+## Current Features
 
-## Setup
-1. Clone this repository or [create your repository from this template](https://help.github.com/en/articles/creating-a-repository-from-a-template).
-2. Install packages:
-	```npm install ``` or ```yarn install ```
-
-## Essential Information
-
- - [Webpack](https://webpack.js.org/) based project.
- - JS transpiled with [Babel](https://babeljs.io/).
- - SCSS for Svelte integrated with [Svelte Preprocess](https://github.com/kaisermann/svelte-preprocess), please see [svelte.config.js](https://github.com/spaceavocado/svelte-router-template/blob/master/svelte.config.js) for integration details.
- - [Pug](https://pugjs.org/) for Svelte integrated with [Svelte Preprocess](https://github.com/kaisermann/svelte-preprocess), please see the [Svelte Pug syntax limitations](https://github.com/kaisermann/svelte-preprocess#pug).
- - The template is set to use the Svelte Router HTML5 history mode, to switch it to HASH mode, please see the [Router Options](https://github.com/spaceavocado/svelte-router#router-options).
-	```javascript
-	createRouter({
-	  mode: ROUTER_MODE.HASH,
-	});
-	```
+* Enter sale amounts in your local currency (supports 94 currencies) and have them converted to an amount in Nimiq
+* A QR code payment request is generated
+* Get an on-screen notification when the requested amount is received at your address
+* Translated to 12 languages so far
+* Password protected settings page
+* Compatible with Ledger/Trezor/KeepKey hardware wallets
 
 ## Local Development Server
 To run the development server that provides live reloading, run:
@@ -34,11 +22,11 @@ To run the development server that provides live reloading, run:
 > * webpack.config.js
 > * package.json
 
-The productions files are located in **/publish** folder:
+The productions files are located in **/dist** folder:
 
  - index.html
- - dist
+ - static
  - assets
 
 ## License
-Svelte Router is released under the MIT license. See [LICENSE.txt](https://github.com/spaceavocado/svelte-router-template/blob/master/LICENSE.txt).
+Spark Nimiq is released under the AGPL-3.0 license. See [LICENSE.txt](https://github.com/rraallvv/spark-payments-nimiq-webpack/blob/master/LICENSE.txt).
