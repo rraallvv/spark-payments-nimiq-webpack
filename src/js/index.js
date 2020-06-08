@@ -1,16 +1,16 @@
-import App from './app.svelte';
-import {createSite} from './store/site';
-import {createSocket} from './store/socket';
-import {createSettings} from './store/settings';
-import createRouter, {ROUTER_MODE} from '@spaceavocado/svelte-router';
+import App from './app.svelte'
+import {createSite} from './store/site'
+import {createSocket} from './store/socket'
+import {createSettings} from './store/settings'
+import createRouter, {ROUTER_MODE} from '@spaceavocado/svelte-router'
 
 // View components
-import ViewCharge from './view/charge.svelte';
-import ViewSettings from './view/settings.svelte';
-import ViewQr from './view/qr.svelte';
-import ViewConfirmed from './view/confirmed.svelte';
-import ViewConnection from './view/connection.svelte';
-import ViewDonate from './view/donate.svelte';
+import ViewCharge from './view/charge.svelte'
+import ViewSettings from './view/settings.svelte'
+import ViewQr from './view/qr.svelte'
+import ViewConfirmed from './view/confirmed.svelte'
+import ViewConnection from './view/connection.svelte'
+import ViewDonate from './view/donate.svelte'
 
 const env = 'testnet'
 
@@ -22,7 +22,7 @@ createSite({
   safeUrl: env === 'mainnet' ? 'https://safe.nimiq.com' : 'https://safe.nimiq-testnet.com',
   // mainnet: https://hub.nimiq.com - testnet: https://hub.nimiq-testnet.com
   hubUrl: env === 'mainnet' ? 'https://hub.nimiq.com' : 'https://hub.nimiq-testnet.com'
-});
+})
 
 // Create a new router
 createRouter({
@@ -32,7 +32,7 @@ createRouter({
     {
       path: '/',
       name: 'CARGE',
-      component: ViewCharge,
+      component: ViewCharge
     },
     {
       path: '/settings',
@@ -61,12 +61,12 @@ createRouter({
     },
     {
       path: '*',
-      redirect: '/',
-    },
-  ],
-});
+      redirect: '/'
+    }
+  ]
+})
 
-createSocket(env);
+createSocket(env)
 
 createSettings({
   account: localStorage.getItem('account') || '',
@@ -74,8 +74,9 @@ createSettings({
   language: localStorage.getItem('language') || 'en',
   currency: localStorage.getItem('currency') || 'USD',
   format: localStorage.getItem('format') || 'nimiq'
-});
+})
 
+/* eslint-disable no-new */
 new App({
-  target: document.body,
-});
+  target: document.body
+})

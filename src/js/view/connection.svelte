@@ -1,16 +1,16 @@
-<div id="connection" in:fly={{x:20, duration: 500}}>
+<div id="connection" in:fly={{x: 20, duration: 500}}>
   <h1 id='red'>{language.connected}</h1>
   <h1 id='dark'>{language.internet}</h1>
 </div>
 
 <script>
-  import {fly} from 'svelte/transition';
-  import {router} from '@spaceavocado/svelte-router';
-  import translations from '../../../assets/lang.json';
-  import {settings} from '../store/settings';
-  import {socket} from '../store/socket';
+  import {fly} from 'svelte/transition'
+  import {router} from '@spaceavocado/svelte-router'
+  import translations from '../../../assets/lang.json'
+  import {settings} from '../store/settings'
+  import {socket} from '../store/socket'
 
-  let language = translations[$settings.language];
+  let language = translations[$settings.language]
 
   $socket.on('connect', () => {
     if (localStorage.getItem('account')) {
@@ -18,8 +18,7 @@
     } else {
       $router.replace('/settings')
     }
-  });
-
+  })
 </script>
 
 <style scoped>

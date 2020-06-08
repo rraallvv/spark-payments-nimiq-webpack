@@ -1,8 +1,8 @@
 <div id="app">
-{#if path === "/"}
+{#if path === '/'}
   <span on:click={navigateToSettings} id="menu"><div class="hamburger" /></span>
 {/if}
-{#if path === "/settings" && isStored()}
+{#if path === '/settings' && isStored()}
   <span on:click={cancel} id="menu"><div class="close" /></span>
 {/if}
   <img class='logo' src='./assets/img/logo.png' alt='Spark'>
@@ -17,27 +17,27 @@
 </div>
 
 <script>
-  import {site} from './store/site';
-  import {settings} from './store/settings';
-  import {router} from '@spaceavocado/svelte-router';
-  import {socket} from './store/socket';
-  import RouterView from '@spaceavocado/svelte-router/component/view';
-  import {onMount} from 'svelte';
-  import translations from '../../assets/lang.json';
-  let bitcoin = require('bitcoinjs-lib');
-  let path;
-  let connected = false;
-  let windowHeight;
-  let windowWidth;
-  let isMobile;
-  let isSoftKeyboardVisible;
+  import swal from 'sweetalert'
+  import {settings} from './store/settings'
+  import {router} from '@spaceavocado/svelte-router'
+  import {socket} from './store/socket'
+  import RouterView from '@spaceavocado/svelte-router/component/view'
+  import {onMount} from 'svelte'
+  import translations from '../../assets/lang.json'
+  let bitcoin = require('bitcoinjs-lib')
+  let path
+  let connected = false
+  let windowHeight
+  let windowWidth
+  let isMobile
+  let isSoftKeyboardVisible
 
-  $router.onNavigationChanged((_, to) => path = to.path);
+  $router.onNavigationChanged((_, to) => { path = to.path })
 
   $router.navigationGuard(async (from, to, next) => {
     if (to.path !== '/settings') {
-      next();
-      return;
+      next()
+      return
     }
     const language = translations[$settings.language]
     // for backwards compatibility (for now), we only ask for password if password exists
@@ -71,12 +71,12 @@
     } else {
       next()
     }
-  });
+  })
 
-  $socket.on('connect', () => connected = true);
-  $socket.on('disconnect', () => connected = false);
+  $socket.on('connect', () => { connected = true })
+  $socket.on('disconnect', () => { connected = false })
 
-  function resize() {
+  function resize () {
     windowHeight = window.innerHeight
     windowWidth = window.innerWidth
     if (windowHeight / windowWidth < 2) {
@@ -91,16 +91,16 @@
   }
 
   // take us to settings page
-  function navigateToSettings() {
-    $router.push('/settings');
+  function navigateToSettings () {
+    $router.push('/settings')
   }
 
-  function cancel() {
-    $router.replace('/');
+  function cancel () {
+    $router.replace('/')
   }
 
   // check if settings are stored
-  function isStored() {
+  function isStored () {
     return localStorage.getItem('account') && localStorage.getItem('password')
   }
 
@@ -113,30 +113,30 @@
     }
 
     // detect mobile platform
-    var hasTouchScreen = false;
+    var hasTouchScreen = false
     if ('maxTouchPoints' in navigator) {
-      hasTouchScreen = navigator.maxTouchPoints > 0;
+      hasTouchScreen = navigator.maxTouchPoints > 0
     } else if ('msMaxTouchPoints' in navigator) {
-      hasTouchScreen = navigator.msMaxTouchPoints > 0;
+      hasTouchScreen = navigator.msMaxTouchPoints > 0
     } else {
-      var mQ = window.matchMedia && matchMedia('(pointer:coarse)');
+      var mQ = window.matchMedia && matchMedia('(pointer:coarse)')
       if (mQ && mQ.media === '(pointer:coarse)') {
-        hasTouchScreen = !!mQ.matches;
+        hasTouchScreen = !!mQ.matches
       } else if ('orientation' in window) {
-        hasTouchScreen = true; // deprecated, but good fallback
+        hasTouchScreen = true // deprecated, but good fallback
       } else {
         // Only as a last resort, fall back to user agent sniffing
-        var UA = navigator.userAgent;
+        var UA = navigator.userAgent
         hasTouchScreen = (
           /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
           /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
-        );
+        )
       }
     }
 
-    isMobile = hasTouchScreen;
+    isMobile = hasTouchScreen
 
-    resize();
+    resize()
 
     window.addEventListener('resize', () => {
       if (isMobile) {
@@ -146,16 +146,16 @@
             // TODO: find a better way to update windowWidth and windowHeight
             // instead of reloading the page on screen orientation changes
             // when the soft keyboard is visible
-            window.location.reload();
+            window.location.reload()
           }
         } else {
-          isSoftKeyboardVisible = windowHeight !== window.innerHeight;
+          isSoftKeyboardVisible = windowHeight !== window.innerHeight
         }
       } else {
-        resize();
+        resize()
       }
-    });
-  });
+    })
+  })
 </script>
 
 <style>

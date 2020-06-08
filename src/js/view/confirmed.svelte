@@ -1,4 +1,4 @@
-<div in:fly={{x:20, duration: 500}}>
+<div in:fly={{x: 20, duration: 500}}>
   <br>
   <p>{language.payment_received}&nbsp;
     {#if locked === 'true'}
@@ -18,27 +18,27 @@
 </div>
 
 <script>
-  import {fly} from 'svelte/transition';
-  import {router} from '@spaceavocado/svelte-router';
-  import translations from '../../../assets/lang.json';
-  import * as spark from '../helpers';
-  import {onMount} from 'svelte';
-  import {socket} from '../store/socket';
-  import {settings} from '../store/settings';
+  import {fly} from 'svelte/transition'
+  import {router} from '@spaceavocado/svelte-router'
+  import translations from '../../../assets/lang.json'
+  import * as spark from '../helpers'
+  import {onMount} from 'svelte'
+  import {socket} from '../store/socket'
+  import {settings} from '../store/settings'
 
-  let locked = '0';
-  let language = translations[$settings.language];
-  let address = '';
-  let web;
+  let locked = '0'
+  let language = translations[$settings.language]
+  let address = ''
+  let web
 
-  $: web = $router.currentRoute.query.platform === 'web' ? true : false;
+  $: web = $router.currentRoute.query.platform === 'web'
 
-  function done() {
+  function done () {
     // navigate home
     $router.replace('/')
   }
 
-  function play() {
+  function play () {
     // ka-fucking-ching!
     let audio = new Audio(require('../../../assets/kaching.mp3'))
     let audioPromise = audio.play()
@@ -66,8 +66,7 @@
     index = parseFloat(index) + 1
     localStorage.setItem('index', index)
     play()
-  });
-
+  })
 </script>
 
 <style scoped>

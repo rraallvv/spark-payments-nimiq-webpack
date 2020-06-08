@@ -1,4 +1,4 @@
-<form autocomplete='off' in:fly={{x:20, duration: 500}}>
+<form autocomplete='off' in:fly={{x: 20, duration: 500}}>
   <p>{language.donate}</p>
   <!-- amount display -->
   <input bind:value={price} id="donate-box" on:mousedown={noSelect} on:input={setTwoNumberDecimal} on:click={moveCursor} bind:this={input} type='text' class='input pad'>
@@ -106,19 +106,19 @@
 </form>
 
 <script>
-  import {fly} from 'svelte/transition';
-  import swal from 'sweetalert';
-  import {router} from '@spaceavocado/svelte-router';
-  import translations from '../../../assets/lang.json';
-  import {settings} from '../store/settings';
+  import {fly} from 'svelte/transition'
+  import swal from 'sweetalert'
+  import {router} from '@spaceavocado/svelte-router'
+  import translations from '../../../assets/lang.json'
+  import {settings} from '../store/settings'
 
-  let language = translations[$settings.language];
-  let currency = $settings.currency;
-  let price = '0.00';
-  let input;
+  let language = translations[$settings.language]
+  let currency = $settings.currency
+  let price = '0.00'
+  let input
 
   $: {
-    let newValue = price;
+    let newValue = price
     if (newValue.length > 2) {
       newValue = newValue.replace('.', '')
       price = `${newValue.substr(0, newValue.length - 2)}.${newValue.substr(newValue.length - 2)}`
@@ -127,21 +127,21 @@
     }
   }
 
-  function setTwoNumberDecimal(e) {
+  function setTwoNumberDecimal (e) {
     price = parseFloat(price).toFixed(2)
   }
 
-  function moveCursor() {
+  function moveCursor () {
     let len = price.length
     input.setSelectionRange(len, len)
   }
 
-  function noSelect() {
+  function noSelect () {
     return false
   }
 
   // begins purchase
-  function donate() {
+  function donate () {
     // if amount is empty, notify merchant and stop function
     if (price === '' || parseFloat(price === 0)) { // string vs int?
       swal('Error!', language.errors.price, 'error')
@@ -150,7 +150,6 @@
     // show QR page and pass data
     $router.push(`/sale/${price}%20${currency}?address=${$router.currentRoute.query.address}`)
   }
-
 </script>
 
 <style scoped>

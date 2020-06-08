@@ -1,4 +1,4 @@
-<div in:fly={{x:20, duration: 500}}>
+<div in:fly={{x: 20, duration: 500}}>
   {#if camera}
   <div>
     <div class='video-wrapper'>
@@ -12,21 +12,21 @@
         <video in:videoMounted />
       </div>
     </div>
-    <button style="background: var(--red); border: 1px solid var(--red);" on:click={() => camera = false}>{language.cancel}</button>
+    <button style="background: var(--red); border: 1px solid var(--red);" on:click={() => { camera = false }}>{language.cancel}</button>
   </div>
   {:else}
   <form autocomplete='off'>
     <p>{language.address}</p>
     <div id="wrap">
       <input id="address" bind:value={address} type='text' class='input settings' placeholder='NQ'>
-      <button id="scan" on:click|preventDefault={() => camera = true}><div class='show-camera'/></button>
+      <button id="scan" on:click|preventDefault={() => { camera = true }}><div class='show-camera'/></button>
       <button id="wallet" on:click|preventDefault={wallet}><div class='pick-wallet'/></button>
     </div>
     <!-- <input bind:value={address} type='text' class='input settings'> -->
     <p>{language.password}</p>
     <div id="wrap">
       <input id="password" value={password} on:change={passwordChanged} type={passwordFieldType} class='input settings' placeholder={pw}>
-      <button id="show-password" on:click|preventDefault={togglePasswordFieldType}><div class={passwordFieldType === "password" ? "pw-visible" : "pw-hidden"}/></button>
+      <button id="show-password" on:click|preventDefault={togglePasswordFieldType}><div class={passwordFieldType === 'password' ? 'pw-visible' : 'pw-hidden'}/></button>
     </div>
     <p>{language.language}</p>
     <select bind:value={languages}>
@@ -151,47 +151,47 @@
 </div>
 
 <script>
-  import {fly} from 'svelte/transition';
-  import swal from 'sweetalert';
-  import {validate} from 'public-address-validator';
-  import {router} from '@spaceavocado/svelte-router';
-  import translations from '../../../assets/lang.json';
-  import {settings} from '../store/settings';
-  import {site} from '../store/site';
-  import HubApi from '@nimiq/hub-api';
-  import QrScanner from 'qr-scanner';
-  import QrScannerWorkerPath from '!!file-loader!../../../node_modules/qr-scanner/qr-scanner-worker.min.js';
-  QrScanner.WORKER_PATH = QrScannerWorkerPath;
-  let bitcoin = require('bitcoinjs-lib');
+  import {fly} from 'svelte/transition'
+  import swal from 'sweetalert'
+  import {validate} from 'public-address-validator'
+  import {router} from '@spaceavocado/svelte-router'
+  import translations from '../../../assets/lang.json'
+  import {settings} from '../store/settings'
+  import {site} from '../store/site'
+  import HubApi from '@nimiq/hub-api'
+  import QrScanner from 'qr-scanner'
+  import QrScannerWorkerPath from '!!file-loader!../../../node_modules/qr-scanner/qr-scanner-worker.min.js'
+  QrScanner.WORKER_PATH = QrScannerWorkerPath
+  let bitcoin = require('bitcoinjs-lib')
 
-  let camera = false;
-  let language;
-  let languages = $settings.language;
-  let pw;
-  let address = $settings.account;
-  let password = $settings.password;
-  let currency = $settings.currency;
-  let format = $settings.format;
-  let passwordFieldType = 'password';
+  let camera = false
+  let language
+  let languages = $settings.language
+  let pw
+  let address = $settings.account
+  let password = $settings.password
+  let currency = $settings.currency
+  let format = $settings.format
+  let passwordFieldType = 'password'
 
   $: {
-    $settings.language = languages;
-    language = translations[$settings.language];
+    $settings.language = languages
+    language = translations[$settings.language]
     if (language !== '') {
       !localStorage.getItem('password') ? pw = language.errors.create : pw = language.errors.reset
     }
   }
 
-  $: $settings.password = password;
+  $: $settings.password = password
 
-  $: $settings.account = address;
+  $: $settings.account = address
 
-  $: $settings.currency = currency;
+  $: $settings.currency = currency
 
-  $: $settings.format = format;
+  $: $settings.format = format
 
   // saves input value to local storage and return home
-  function save() {
+  function save () {
     let acct = $settings.account
     const pw = $settings.password
     const storedPw = localStorage.getItem('password')
@@ -229,22 +229,22 @@
     $router.replace('/')
   }
 
-  function togglePasswordFieldType() {
-    passwordFieldType = passwordFieldType === 'password' ? 'text' : 'password';
+  function togglePasswordFieldType () {
+    passwordFieldType = passwordFieldType === 'password' ? 'text' : 'password'
   }
 
-  function wallet() {
+  function wallet () {
     const hubApi = new HubApi($site.hubUrl)
     hubApi.chooseAddress({appName: 'Spark'}).then(addressInfo => {
       address = addressInfo.address
     })
   }
 
-  function passwordChanged({target}) {
-    password = target.value;
+  function passwordChanged ({target}) {
+    password = target.value
   }
 
-  function videoMounted(video) {
+  function videoMounted (video) {
     const scanner = new QrScanner(video, data => {
       let acct = data
       // if address starts with 'nimiq:' we remove it
@@ -258,10 +258,9 @@
       camera = false
       console.log(data)
       scanner.destroy()
-    });
-    scanner.start();
+    })
+    scanner.start()
   }
-
 </script>
 
 <style scoped>

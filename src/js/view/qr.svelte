@@ -1,4 +1,4 @@
-<div id="container" in:fly={{x:20, duration: 500}}>
+<div id="container" in:fly={{x: 20, duration: 500}}>
   {#if !loading}
   <div id="spinner">
     <Circle size="1.225" color="var(--primary)" unit="em"/>
@@ -21,7 +21,7 @@
         <p id="invoice">{invoice}</p>
       </div>
     </div>
-    <p hidden={tx.received == 0}>{language.partial}: {partial} {$settings.format}</p>
+    <p hidden={tx.received === 0}>{language.partial}: {partial} {$settings.format}</p>
     <p hidden={tx.received > 0}>{language.waiting}</p>
     <br>
     {#if !$router.currentRoute.query.address}
@@ -31,18 +31,18 @@
 </div>
 
 <script>
-  import {fly} from 'svelte/transition';
+  import {fly} from 'svelte/transition'
   import * as spark from '../helpers'
   import axios from 'axios'
-  import {router} from '@spaceavocado/svelte-router';
-  import translations from '../../../assets/lang.json';
+  import {router} from '@spaceavocado/svelte-router'
+  import translations from '../../../assets/lang.json'
   import swal from 'sweetalert'
-  import {settings} from '../store/settings';
-  import {socket} from '../store/socket';
-  import {site} from '../store/site';
-  import {onMount} from 'svelte';
+  import {settings} from '../store/settings'
+  import {socket} from '../store/socket'
+  import {site} from '../store/site'
+  import {onMount} from 'svelte'
   import QrCreator from 'qr-creator'
-  import { Pulse, Circle, Circle2, Circle3 } from 'svelte-loading-spinners'
+  import { Pulse, Circle } from 'svelte-loading-spinners'
 
   let loading = true
   let qr = true
@@ -59,11 +59,11 @@
     received: 0,
     locked: false
   }
-  let language = translations[$settings.language];
+  let language = translations[$settings.language]
 
-  $: unitPrice = $settings.format === 'luna' ? price.luna : price.nimiq;
+  $: unitPrice = $settings.format === 'luna' ? price.luna : price.nimiq
 
-  $: partial = $settings.format === 'nimiq' ? parseFloat(tx.received).toFixed(5) : (tx.received * 100000).toFixed(0);
+  $: partial = $settings.format === 'nimiq' ? parseFloat(tx.received).toFixed(5) : (tx.received * 100000).toFixed(0)
 
   $: {
     if (document.querySelector('#qr-canvas')) {
@@ -75,15 +75,15 @@
         fill: '#000000', // foreground color
         background: null, // color or null for transparent
         size: 256 // in pixels
-      }, document.querySelector('#qr-canvas'));
+      }, document.querySelector('#qr-canvas'))
     }
   }
 
-  function test() {
+  function test () {
     qr = !qr
   }
 
-  function cancel() {
+  function cancel () {
     // return home
     $router.go(-1)
     // unsubscribe from tx events
@@ -95,7 +95,7 @@
   $socket.on('tx', data => {
     // if address doesn't matches the address we have in settings ignore tx
     if (data.recipient !== address) {
-      return;
+      return
     }
     // set amount received and instantsend status
     tx.received = tx.received + (data.value / 100000)
@@ -134,7 +134,7 @@
       uri = `${$site.safeUrl}/#_request/${address.replace(/ /g, '')}/${remaining}_`
       // TODO: change price, debate over remaining vs received
     }
-  });
+  })
 
   onMount(async () => {
     // get address
@@ -187,7 +187,7 @@
     // loading is done
     loading = false
     loaderClasses = 'fade-out'
-  });
+  })
 </script>
 
 <style scoped>

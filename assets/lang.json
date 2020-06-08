@@ -202,7 +202,7 @@
       "thanks": "Bedankt!",
       "done": "voltooid",
       "pay": "pay",
-	  "donate": "please type an amount",
+      "donate": "please type an amount",
       "errors": {
         "enter": "Please enter your password",
         "wrong": "Password is incorrect",

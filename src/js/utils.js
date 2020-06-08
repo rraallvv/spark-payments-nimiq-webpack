@@ -3,13 +3,13 @@
  * @param {string} text source text
  * @return {string}
  */
-export function slugify(text) {
+export function slugify (text) {
   return text.toString().toLowerCase()
-      .replace(/\s+/g, '-')
-      .replace(/[^\w\-]+/g, '')
-      .replace(/\-\-+/g, '-')
-      .replace(/^-+/, '')
-      .replace(/-+$/, '');
+    .replace(/\s+/g, '-')
+    .replace(/[^\w-]+/g, '')
+    .replace(/--+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '')
 }
 
 /**
@@ -17,10 +17,10 @@ export function slugify(text) {
  * @param {Date} date
  * @return {string}
  */
-export function formatDateLong(date) {
+export function formatDateLong (date) {
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric',
-  });
+    day: 'numeric'
+  })
 }

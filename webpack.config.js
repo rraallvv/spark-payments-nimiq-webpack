@@ -40,6 +40,15 @@ module.exports = (env, options) => {
     module: {
       rules: [
         {
+          test: /\.(js|svelte)$/,
+          loader: 'eslint-loader',
+          enforce: 'pre',
+          include: path.join(__dirname, 'src'),
+          options: {
+            formatter: require('eslint-friendly-formatter'),
+          }
+        },
+        {
           test: /\.svelte$/,
           use: {
             loader: 'svelte-loader',

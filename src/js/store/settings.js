@@ -1,9 +1,9 @@
 
-import {writable} from 'svelte/store';
+import {writable} from 'svelte/store'
 
-export let settings;
+export let settings
 
-export function createSettings(params) {
-  settings = writable(params);
-  return settings;
+export function createSettings (params) {
+  settings = writable(params)
+  return settings
 };

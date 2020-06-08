@@ -1,6 +1,6 @@
 
 export function getExchangeRate (currency) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     // if (currency.match( /ARS|AUD|BRL|CAD|DKK|AED|EUR|HKD|INR|ILS|KES|MXN|NZD|NOK|PHP|PLN|GBP|SGD|SEK|CHF|USD|JPY|CNY/g ) !== null) {
     //   ajax(`https://api.uphold.com:443/v0/ticker/${token}${currency}`)
     //     .then(function(result) {
@@ -25,14 +25,14 @@ export function getExchangeRate (currency) {
 }
 
 export function getAddress (account) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     resolve(account)
   })
 }
 
 function ajax (url) {
   return new Promise(function (resolve, reject) {
-    var xhr = new XMLHttpRequest()
+    const xhr = new XMLHttpRequest()
     xhr.onload = function () {
       resolve(JSON.parse(this.responseText))
     }

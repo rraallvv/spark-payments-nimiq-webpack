@@ -1,4 +1,4 @@
-<form autocomplete='off' in:fly={{x:20, duration: 500}}>
+<form autocomplete='off' in:fly={{x: 20, duration: 500}}>
   <!-- amount display -->
   <input value={price} type='text' class='input pad' disabled>
   <br>
@@ -24,14 +24,15 @@
 </form>
 
 <script>
-  import {fly} from 'svelte/transition';
-  import translations from '../../../assets/lang.json';
-  import {router} from '@spaceavocado/svelte-router';
-  import {settings} from '../store/settings';
+  import {fly} from 'svelte/transition'
+  import translations from '../../../assets/lang.json'
+  import {router} from '@spaceavocado/svelte-router'
+  import {settings} from '../store/settings'
+  import swal from 'sweetalert'
 
-  let language = translations[$settings.language];
-  let native = '';
-  let price;
+  let language = translations[$settings.language]
+  let native = ''
+  let price
 
   $: {
     if ($settings.currency.match(/COP|BYN|CLP|ISK|JPY|KRW|PYG|UGX|UYU|VND/g) !== null) {
@@ -51,17 +52,17 @@
   }
 
   // adds pressed key to amount display
-  function add(num) {
+  function add (num) {
     native = native + num
   }
 
   // removes pressed key from amount display
-  function remove() {
+  function remove () {
     native = native.slice(0, -1)
   }
 
   // begins purchase
-  function purchase() {
+  function purchase () {
     // if amount is empty, notify merchant and stop function
     if (native === '' || native === 0) { // string vs int?
       swal('Error!', language.errors.price, 'error')
