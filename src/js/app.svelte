@@ -73,8 +73,18 @@
     }
   })
 
-  $socket.on('connect', () => { connected = true })
-  $socket.on('disconnect', () => { connected = false })
+  // on socket connection
+  $socket.on('connect', () => {
+    console.log('connected to insight')
+    connected = true
+  })
+
+  // on socket disconnect
+  $socket.on('disconnect', () => {
+    console.log('disconnected from insight')
+    $router.push('/connection')
+    connected = false
+  })
 
   function resize () {
     windowHeight = window.innerHeight
