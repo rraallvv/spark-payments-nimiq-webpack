@@ -2,13 +2,13 @@
   <br>
   <p>{language.payment_received}&nbsp;
     {#if locked === 'true'}
-    <img id="lock" src="../assets/img/locked.png" alt="Locked">
+    <img id="lock" src="../../assets/img/locked.png" alt="Locked">
     {:else}
-    <img id="lock" src="../assets/img/unlocked.png" alt="Not Locked">
+    <img id="lock" src="../../assets/img/unlocked.png" alt="Not Locked">
     {/if}
   </p>
   <br>
-  <img src='../assets/img/confirm.png' alt="Confirmed">
+  <img src='../../assets/img/confirm.png' alt="Confirmed">
   <br>
   <p>{language.thanks}</p>
   <br>
@@ -20,11 +20,11 @@
 <script>
   import {fly} from 'svelte/transition'
   import {router} from '@spaceavocado/svelte-router'
-  import translations from '../../../assets/lang.json'
+  import translations from '../../assets/lang.json'
   import * as spark from '../helpers'
   import {onMount} from 'svelte'
-  import {socket} from '../store/socket'
-  import {settings} from '../store/settings'
+  import {socket} from '../stores/socket'
+  import {settings} from '../stores/settings'
 
   let locked = '0'
   let language = translations[$settings.language]
@@ -40,7 +40,7 @@
 
   function play () {
     // ka-fucking-ching!
-    let audio = new Audio(require('../../../assets/kaching.mp3'))
+    let audio = new Audio(require('../../assets/kaching.mp3'))
     let audioPromise = audio.play()
 
     if (audioPromise !== undefined) {
@@ -69,7 +69,7 @@
   })
 </script>
 
-<style scoped>
+<style>
   p {
     color: var(--dark);
     margin: 1% auto;

@@ -17,7 +17,7 @@
     </div>
     <div hidden={qr} id="cointext" on:click={test}>
       <div id="content">
-        <img id="cointext-logo" src='../assets/img/nimiqtext.png' alt="Cointext">
+        <img id="cointext-logo" src='../../assets/img/nimiqtext.png' alt="Cointext">
         <p id="invoice">{invoice}</p>
       </div>
     </div>
@@ -35,11 +35,11 @@
   import * as spark from '../helpers'
   import axios from 'axios'
   import {router} from '@spaceavocado/svelte-router'
-  import translations from '../../../assets/lang.json'
+  import translations from '../../assets/lang.json'
   import swal from 'sweetalert'
-  import {settings} from '../store/settings'
-  import {socket} from '../store/socket'
-  import {site} from '../store/site'
+  import {settings} from '../stores/settings'
+  import {socket} from '../stores/socket'
+  import {site} from '../stores/site'
   import {onMount} from 'svelte'
   import QrCreator from 'qr-creator'
   import { Pulse, Circle } from 'svelte-loading-spinners'
@@ -190,7 +190,7 @@
   })
 </script>
 
-<style scoped>
+<style>
 
   #container {
     position: relative;

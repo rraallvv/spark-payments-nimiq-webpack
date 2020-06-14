@@ -155,12 +155,12 @@
   import swal from 'sweetalert'
   import {validate} from 'public-address-validator'
   import {router} from '@spaceavocado/svelte-router'
-  import translations from '../../../assets/lang.json'
-  import {settings} from '../store/settings'
-  import {site} from '../store/site'
+  import translations from '../../assets/lang.json'
+  import {settings} from '../stores/settings'
+  import {site} from '../stores/site'
   import HubApi from '@nimiq/hub-api'
   import QrScanner from 'qr-scanner'
-  import QrScannerWorkerPath from '!!file-loader!../../../node_modules/qr-scanner/qr-scanner-worker.min.js'
+  import QrScannerWorkerPath from '!!file-loader!../../node_modules/qr-scanner/qr-scanner-worker.min.js'
   QrScanner.WORKER_PATH = QrScannerWorkerPath
   let bitcoin = require('bitcoinjs-lib')
 
@@ -263,7 +263,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   #wrap {
     display: inline-block;
     position: relative;

@@ -22,7 +22,7 @@ module.exports = (env, options) => {
   const DEVELOPMENT = options.mode === 'development';
   return {
     entry: {
-      app: './src/js/index.js'
+      app: './src/index.js'
     },
     resolve: {
       mainFields,

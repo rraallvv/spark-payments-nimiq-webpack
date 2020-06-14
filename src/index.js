@@ -1,16 +1,16 @@
 import App from './app.svelte'
-import {createSite} from './store/site'
-import {createSocket} from './store/socket'
-import {createSettings} from './store/settings'
+import {createSite} from './stores/site'
+import {createSocket} from './stores/socket'
+import {createSettings} from './stores/settings'
 import createRouter, {ROUTER_MODE} from '@spaceavocado/svelte-router'
 
 // View components
-import ViewCharge from './view/charge.svelte'
-import ViewSettings from './view/settings.svelte'
-import ViewQr from './view/qr.svelte'
-import ViewConfirmed from './view/confirmed.svelte'
-import ViewConnection from './view/connection.svelte'
-import ViewDonate from './view/donate.svelte'
+import ViewCharge from './views/charge.svelte'
+import ViewSettings from './views/settings.svelte'
+import ViewQr from './views/qr.svelte'
+import ViewConfirmed from './views/confirmed.svelte'
+import ViewConnection from './views/connection.svelte'
+import ViewDonate from './views/donate.svelte'
 
 const env = 'testnet'
 

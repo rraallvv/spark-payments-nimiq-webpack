@@ -5,7 +5,7 @@
 {#if path === '/settings' && isStored()}
   <span on:click={cancel} id="menu"><div class="close" /></span>
 {/if}
-  <img class='logo' src='./assets/img/logo.png' alt='Spark'>
+  <img class='logo' src='../assets/img/logo.png' alt='Spark'>
 {#if connected}
   <span id="status" class="green">•</span>
 {:else}
@@ -18,12 +18,12 @@
 
 <script>
   import swal from 'sweetalert'
-  import {settings} from './store/settings'
+  import {settings} from './stores/settings'
   import {router} from '@spaceavocado/svelte-router'
-  import {socket} from './store/socket'
+  import {socket} from './stores/socket'
   import RouterView from '@spaceavocado/svelte-router/component/view'
   import {onMount} from 'svelte'
-  import translations from '../../assets/lang.json'
+  import translations from '../assets/lang.json'
   let bitcoin = require('bitcoinjs-lib')
   let path
   let connected = false

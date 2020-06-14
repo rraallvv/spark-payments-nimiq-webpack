@@ -109,8 +109,8 @@
   import {fly} from 'svelte/transition'
   import swal from 'sweetalert'
   import {router} from '@spaceavocado/svelte-router'
-  import translations from '../../../assets/lang.json'
-  import {settings} from '../store/settings'
+  import translations from '../../assets/lang.json'
+  import {settings} from '../stores/settings'
 
   let language = translations[$settings.language]
   let currency = $settings.currency
@@ -152,7 +152,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   /* remove outlines from form */
   form input:focus,
   form button:focus {

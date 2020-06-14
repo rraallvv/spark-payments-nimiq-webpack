@@ -6,9 +6,9 @@
 <script>
   import {fly} from 'svelte/transition'
   import {router} from '@spaceavocado/svelte-router'
-  import translations from '../../../assets/lang.json'
-  import {settings} from '../store/settings'
-  import {socket} from '../store/socket'
+  import translations from '../../assets/lang.json'
+  import {settings} from '../stores/settings'
+  import {socket} from '../stores/socket'
 
   let language = translations[$settings.language]
 
@@ -21,7 +21,7 @@
   })
 </script>
 
-<style scoped>
+<style>
   h1 {
     font-size: 2.45em;
     text-align: center;
