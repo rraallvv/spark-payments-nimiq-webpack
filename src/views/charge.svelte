@@ -17,7 +17,7 @@
   <br>
   <input on:click={() => add('0')} type='button' class='number' value='0'>
   <input on:click={() => add('00')} type='button' class='number' value='00'>
-  <div on:click={remove} class='delete'><div/></div>
+  <input on:click={remove} type='button' class='material-icons delete' value='backspace'>
   <br>
   <!-- charge button -->
   <button on:click|preventDefault={purchase} class="charge">{language.charge}</button>
@@ -90,7 +90,7 @@
     text-align: center;
   }
   /* number pad buttons */
-  input[type="button"] {
+  .number {
     background: var(--background);
     color: var(--secondary);
     border: none;
@@ -105,12 +105,12 @@
     box-shadow: var(--primary) 0 0 1px 1px;
   }
 
-  input[type="button"]:active {
+  .number:active {
     background: var(--primary);
     color: #fff;
   }
   /* delete button */
-  div.delete {
+  .delete {
     box-shadow: var(--red) 0 0 1px 1px;
     background: var(--background);
     color: var(--secondary);
@@ -128,30 +128,9 @@
     vertical-align: bottom;
   }
 
-  div.delete:active {
+  .delete:active {
     background: var(--red);
     color: #fff;
-  }
-
-  div.delete > div {
-    background: var(--secondary);
-    color: #fff;
-    -webkit-mask: url("../assets/img/backspace.svg") no-repeat;
-    mask: url("../assets/img/backspace.svg") no-repeat;
-    width: 1em;
-    height: 1em;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-  }
-
-  div.delete:active > div {
-    background: var(--background);
-    color: var(--secondary);
   }
 
   /* charge button */

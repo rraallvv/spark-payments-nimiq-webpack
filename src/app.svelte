@@ -1,9 +1,9 @@
 <div id="app">
 {#if path === '/'}
-  <span on:click={navigateToSettings} id="menu"><div class="hamburger" /></span>
+  <span on:click={navigateToSettings} id="menu"><i class="material-icons">menu</i></span>
 {/if}
 {#if path === '/settings' && isStored()}
-  <span on:click={cancel} id="menu"><div class="close" /></span>
+  <span on:click={cancel} id="menu"><i class="material-icons">close</i></span>
 {/if}
   <img class='logo' src='../assets/img/logo.png' alt='Spark'>
 {#if connected}
@@ -170,6 +170,7 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Barlow:300');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 #content {
   margin: 0 auto;
@@ -184,20 +185,8 @@
   left: 20px;
 }
 
-.hamburger {
-    -webkit-mask: url("./assets/img/menu.svg") no-repeat;
-    mask: url("./assets/img/menu.svg") no-repeat;
-    width: 1em;
-    height: 1em;
-    background: #b2b2b2;
-}
-
-.close {
-    -webkit-mask: url("./assets/img/close.svg") no-repeat;
-    mask: url("./assets/img/close.svg") no-repeat;
-    width: 1em;
-    height: 1em;
-    background: #b2b2b2;
+#menu > i {
+  font-size: 1.1em;
 }
 
 #status {
@@ -254,6 +243,30 @@ img {
   margin: 0 auto;
   width: 69.5%;
   height: auto;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
 }
 
 /*

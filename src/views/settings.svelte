@@ -3,10 +3,10 @@
   <div>
     <div class='video-wrapper'>
       <div class='guides-area'>
-        <div class='guidetl'></div>
-        <div class='guidetr'></div>
-        <div class='guidebl'></div>
-        <div class='guidebr'></div>
+        <i class="material-icons guidetl">chevron_left</i>
+        <i class="material-icons guidetr">expand_less</i>
+        <i class="material-icons guidebl">expand_more</i>
+        <i class="material-icons guidebr">chevron_right</i>
       </div>
       <div class='video-crop'>
         <video in:videoMounted />
@@ -19,14 +19,20 @@
     <p>{language.address}</p>
     <div id="wrap">
       <input id="address" bind:value={address} type='text' class='input settings' placeholder='NQ'>
-      <button id="scan" on:click|preventDefault={() => { camera = true }}><div class='show-camera'/></button>
-      <button id="wallet" on:click|preventDefault={wallet}><div class='pick-wallet'/></button>
+      <button id="scan" on:click|preventDefault={() => { camera = true }}><i class="material-icons">qr_code</i></button>
+      <button id="wallet" on:click|preventDefault={wallet}><i class="material-icons">account_balance_wallet</i></button>
     </div>
     <!-- <input bind:value={address} type='text' class='input settings'> -->
     <p>{language.password}</p>
     <div id="wrap">
       <input id="password" value={password} on:change={passwordChanged} type={passwordFieldType} class='input settings' placeholder={pw}>
-      <button id="show-password" on:click|preventDefault={togglePasswordFieldType}><div class={passwordFieldType === 'password' ? 'pw-visible' : 'pw-hidden'}/></button>
+      <button id="show-password" on:click|preventDefault={togglePasswordFieldType}>
+        {#if passwordFieldType === 'password'}
+        <i class="material-icons">visibility</i>
+        {:else}
+        <i class="material-icons">visibility_off</i>
+        {/if}
+      </button>
     </div>
     <p>{language.language}</p>
     <select bind:value={languages}>
@@ -277,12 +283,12 @@
 
   #scan {
     position: absolute;
-    top: 0.92em;
+    top: 1em;
     right: 3em;
     font-size: 1.2em;
     margin: 0;
     width: 1.6em;
-    height: 1.6em;
+    height: 1.3em;
     border: none;
     background: none;
     color: grey;
@@ -290,30 +296,30 @@
 
   #wallet {
     position: absolute;
-    top: 0.92em;
+    top: 1em;
     right: 1.5em;
     font-size: 1.2em;
     margin: 0;
     width: 1.6em;
-    height: 1.6em;
+    height: 1.3em;
     border: none;
     background: none;
     color: grey;
   }
 
   #password {
-    padding-right: 18%;
-    width: 63.5%
+    padding-right: 10%;
+    width: 71.5%
   }
 
   #show-password {
     position: absolute;
-    top: 0.92em;
+    top: 1em;
     right: 1.5em;
     font-size: 1.2em;
     margin: 0;
     width: 1.6em;
-    height: 1.6em;
+    height: 1.3em;
     border: none;
     background: none;
     color: grey;
@@ -371,45 +377,36 @@
 
   .guidetl {
     position: absolute;
-    width: 10%;
-    height: 10%;
-    background-image: url('../assets/img/qr-guide.png');
-    background-size: contain;
-    background-repeat: no-repeat;
+    color: var(--primary);
+    font-size: 4em;
+    transform: translate(-30%, -30%) rotate(45deg);
+    left: 0;
   }
 
   .guidetr {
     position: absolute;
+    color: var(--primary);
+    font-size: 4em;
     right: 0;
-    width: 10%;
-    height: 10%;
-    background-image: url('../assets/img/qr-guide.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    transform: scaleX(-1);
+    transform: translate(30%, -30%) rotate(45deg);
   }
 
   .guidebl {
     position: absolute;
+    color: var(--primary);
+    font-size: 4em;
+    left: 0;
     bottom: 0;
-    width: 10%;
-    height: 10%;
-    background-image: url('../assets/img/qr-guide.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    transform: scaleY(-1);
+    transform: translate(-30%, 30%) rotate(45deg);
   }
 
   .guidebr {
     position: absolute;
+    color: var(--primary);
+    font-size: 4em;
     bottom: 0;
     right: 0;
-    width: 10%;
-    height: 10%;
-    background-image: url('../assets/img/qr-guide.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    transform: scale(-1, -1);
+    transform: translate(30%, 30%) rotate(45deg);
   }
 
   .guides-area {
@@ -428,38 +425,6 @@
     height: 27em;
     position: relative;
     overflow: hidden;
-  }
-
-  .pw-hidden {
-    -webkit-mask: url("../assets/img/pw-hidden.svg") no-repeat;
-    mask: url("../assets/img/pw-hidden.svg") no-repeat;
-    background-color: var(--info);
-    width: 1em;
-    height: 1em;
-  }
-
-  .pw-visible {
-    -webkit-mask: url("../assets/img/pw-visible.svg") no-repeat;
-    mask: url("../assets/img/pw-visible.svg") no-repeat;
-    background-color: var(--info);
-    width: 1em;
-    height: 1em;
-  }
-
-  .pick-wallet {
-    -webkit-mask: url("../assets/img/wallet.svg") no-repeat;
-    mask: url("../assets/img/wallet.svg") no-repeat;
-    background-color: var(--info);
-    width: 1em;
-    height: 1em;
-  }
-
-  .show-camera {
-    -webkit-mask: url("../assets/img/qr-scanner.svg") no-repeat;
-    mask: url("../assets/img/qr-scanner.svg") no-repeat;
-    background-color: var(--info);
-    width: 1em;
-    height: 1em;
   }
 
   .video-crop {
