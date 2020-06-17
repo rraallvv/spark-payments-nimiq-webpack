@@ -1,3 +1,5 @@
+<svelte:window on:keydown={ handleKeydown }></svelte:window>
+
 <div in:fly={{x: 20, duration: 500}}>
   <br>
   <p>{language.payment_received}&nbsp;
@@ -25,6 +27,7 @@
   import {onMount} from 'svelte'
   import {socket} from '../stores/socket'
   import {settings} from '../stores/settings'
+  import swal from 'sweetalert'
 
   let locked = '0'
   let language = translations[$settings.language]
@@ -50,6 +53,15 @@
         // autoplay was prevented
         console.log(error)
       })
+    }
+  }
+
+  function handleKeydown ({keyCode}) {
+    if (swal.getState().isOpen) {
+      return
+    }
+    if (keyCode === 27 || keyCode === 13 || keyCode === 32) {
+      done()
     }
   }
 

@@ -18,6 +18,9 @@ const mainFields = ['svelte', 'browser', 'module', 'main'];
 // in the script "build:html:prod" -> baseurl.
 const baseURL = '';
 
+const HOST = process.env.HOST
+const PORT = process.env.PORT && Number(process.env.PORT)
+
 module.exports = (env, options) => {
   const DEVELOPMENT = options.mode === 'development';
   return {
@@ -153,6 +156,8 @@ module.exports = (env, options) => {
       historyApiFallback: {
         index: 'index.html',
       },
+      host: HOST || 'localhost',
+      port: PORT || '8000',
     },
   };
 };

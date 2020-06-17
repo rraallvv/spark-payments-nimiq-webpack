@@ -6,11 +6,12 @@
   "author": "David Horak <info@davidhorak.com>",
   "license": "MIT",
   "scripts": {
+    "dev": "webpack-dev-server --progress --mode=development",
+    "start": "npm run dev",
+    "lint": "eslint --ext .js,.svelte src",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production",
-    "start": "webpack-dev-server --mode=development",
-    "clean": "rm -rf dist && rm -rf dev",
-    "lint": "eslint --ext .js,.svelte src"
+    "clean": "rm -rf dist && rm -rf dev"
   },
   "repository": {
     "type": "git",

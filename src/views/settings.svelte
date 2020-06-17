@@ -1,3 +1,5 @@
+<svelte:window on:keydown={ handleKeydown }></svelte:window>
+
 <div in:fly={{x: 20, duration: 500}}>
   {#if camera}
   <div>
@@ -16,6 +18,7 @@
   </div>
   {:else}
   <form autocomplete='off'>
+    <button style="overflow: visible !important; height: 0 !important; width: 0 !important; margin: 0 !important; border: 0 !important; padding: 0 !important; display: block !important;" on:click|preventDefault={save}/>
     <p>{language.address}</p>
     <div id="wrap">
       <input id="address" bind:value={address} type='text' class='input settings' placeholder='NQ'>
@@ -25,7 +28,7 @@
     <!-- <input bind:value={address} type='text' class='input settings'> -->
     <p>{language.password}</p>
     <div id="wrap">
-      <input id="password" value={password} on:change={passwordChanged} type={passwordFieldType} class='input settings' placeholder={pw}>
+      <input id="password" value={password} on:input={passwordChanged} type={passwordFieldType} class='input settings' placeholder={pw}>
       <button id="show-password" on:click|preventDefault={togglePasswordFieldType}>
         {#if passwordFieldType === 'password'}
         <i class="material-icons">visibility</i>
@@ -157,6 +160,7 @@
 </div>
 
 <script>
+  import {isStored} from '../utils.js'
   import {fly} from 'svelte/transition'
   import swal from 'sweetalert'
   import {validate} from 'public-address-validator'
@@ -250,22 +254,46 @@
     password = target.value
   }
 
+  function handleKeydown ({keyCode}) {
+    if (swal.getState().isOpen) {
+      return
+    }
+    if (keyCode === 27) {
+      if (camera) {
+        camera = false
+      } else if (isStored()) {
+        password = ''
+        $router.replace('/')
+      }
+    } else if (keyCode === 13) {
+      if (camera) {
+        camera = false
+      } else {
+        save()
+      }
+    }
+  }
+
   function videoMounted (video) {
-    const scanner = new QrScanner(video, data => {
-      let acct = data
-      // if address starts with 'nimiq:' we remove it
-      if (acct.startsWith('nimiq:')) {
-        acct = acct.split(':')[1]
-      }
-      if (data.includes('?')) {
-        acct = acct.split('?')[0]
-      }
-      address = acct
-      camera = false
-      console.log(data)
-      scanner.destroy()
-    })
-    scanner.start()
+    try {
+      const scanner = new QrScanner(video, data => {
+        let acct = data
+        // if address starts with 'nimiq:' we remove it
+        if (acct.startsWith('nimiq:')) {
+          acct = acct.split(':')[1]
+        }
+        if (data.includes('?')) {
+          acct = acct.split('?')[0]
+        }
+        address = acct
+        camera = false
+        console.log(data)
+        scanner.destroy()
+      })
+      scanner.start()
+    } catch (e) {
+      console.log(e)
+    }
   }
 </script>
 

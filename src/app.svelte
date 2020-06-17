@@ -17,6 +17,7 @@
 </div>
 
 <script>
+  import {isStored} from './utils.js'
   import swal from 'sweetalert'
   import {settings} from './stores/settings'
   import {router} from '@spaceavocado/svelte-router'
@@ -107,11 +108,6 @@
 
   function cancel () {
     $router.replace('/')
-  }
-
-  // check if settings are stored
-  function isStored () {
-    return localStorage.getItem('account') && localStorage.getItem('password')
   }
 
   onMount(() => {
@@ -245,7 +241,7 @@ img {
   height: auto;
 }
 
-.material-icons {
+:global(.material-icons) {
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
@@ -256,6 +252,7 @@ img {
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
+  cursor: default;
 
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;

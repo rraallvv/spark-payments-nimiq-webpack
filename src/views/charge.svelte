@@ -1,3 +1,5 @@
+<svelte:window on:keydown={ handleKeydown }></svelte:window>
+
 <form autocomplete='off' in:fly={{x: 20, duration: 500}}>
   <!-- amount display -->
   <input value={price} type='text' class='input pad' disabled>
@@ -70,6 +72,26 @@
     }
     // show QR page and pass data
     $router.push(`/sale/${price}%20${$settings.currency}`)
+  }
+
+  function handleKeydown ({keyCode}) {
+    if (swal.getState().isOpen) {
+      return
+    }
+    switch (keyCode) {
+      case 48: add('0'); break
+      case 49: add('1'); break
+      case 50: add('2'); break
+      case 51: add('3'); break
+      case 52: add('4'); break
+      case 53: add('5'); break
+      case 54: add('6'); break
+      case 55: add('7'); break
+      case 56: add('8'); break
+      case 57: add('9'); break
+      case 8: remove(); break
+      case 13: case 32: purchase(); break
+    }
   }
 </script>
 

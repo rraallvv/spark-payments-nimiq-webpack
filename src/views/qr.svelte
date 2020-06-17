@@ -1,3 +1,5 @@
+<svelte:window on:keydown={ handleKeydown }></svelte:window>
+
 <div id="container" in:fly={{x: 20, duration: 500}}>
   {#if !loading}
   <div id="spinner">
@@ -89,6 +91,15 @@
     // unsubscribe from tx events
     $socket.emit('unsubscribe', address.replace(/ /g, ''))
     console.log('not listening')
+  }
+
+  function handleKeydown ({keyCode}) {
+    if (swal.getState().isOpen) {
+      return
+    }
+    if (keyCode === 27 || keyCode === 13 || keyCode === 32) {
+      cancel()
+    }
   }
 
   // listen for 'tx' event from insight

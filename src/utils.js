@@ -24,3 +24,8 @@ export function formatDateLong (date) {
     day: 'numeric'
   })
 }
+
+// check if settings are stored
+export function isStored () {
+  return localStorage.getItem('account') && localStorage.getItem('password')
+}
