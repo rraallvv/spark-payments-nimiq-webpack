@@ -31,6 +31,7 @@
   import {router} from '@spaceavocado/svelte-router'
   import {settings} from '../stores/settings'
   import swal from 'sweetalert'
+  import {BACKSPACE, ENTER, SPACE} from '../utils.js'
 
   let language = translations[$settings.language]
   let native = ''
@@ -79,6 +80,7 @@
       return
     }
     switch (keyCode) {
+      // Digits 0-9
       case 48: add('0'); break
       case 49: add('1'); break
       case 50: add('2'); break
@@ -89,8 +91,8 @@
       case 55: add('7'); break
       case 56: add('8'); break
       case 57: add('9'); break
-      case 8: remove(); break
-      case 13: case 32: purchase(); break
+      case BACKSPACE: remove(); break
+      case ENTER: case SPACE: purchase(); break
     }
   }
 </script>

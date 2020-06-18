@@ -45,6 +45,7 @@
   import {onMount} from 'svelte'
   import QrCreator from 'qr-creator'
   import { Pulse, Circle } from 'svelte-loading-spinners'
+  import {ESC, ENTER, SPACE} from '../utils.js'
 
   let loading = true
   let qr = true
@@ -97,7 +98,7 @@
     if (swal.getState().isOpen) {
       return
     }
-    if (keyCode === 27 || keyCode === 13 || keyCode === 32) {
+    if (keyCode === ESC || keyCode === ENTER || keyCode === SPACE) {
       cancel()
     }
   }

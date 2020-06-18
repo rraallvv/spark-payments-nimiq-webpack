@@ -29,3 +29,8 @@ export function formatDateLong (date) {
 export function isStored () {
   return localStorage.getItem('account') && localStorage.getItem('password')
 }
+
+export const ENTER = 13
+export const SPACE = 32
+export const BACKSPACE = 8
+export const ESC = 27

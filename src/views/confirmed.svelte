@@ -28,6 +28,7 @@
   import {socket} from '../stores/socket'
   import {settings} from '../stores/settings'
   import swal from 'sweetalert'
+  import {ESC, ENTER, SPACE} from '../utils.js'
 
   let locked = '0'
   let language = translations[$settings.language]
@@ -60,7 +61,7 @@
     if (swal.getState().isOpen) {
       return
     }
-    if (keyCode === 27 || keyCode === 13 || keyCode === 32) {
+    if (keyCode === ESC || keyCode === ENTER || keyCode === SPACE) {
       done()
     }
   }

@@ -160,7 +160,7 @@
 </div>
 
 <script>
-  import {isStored} from '../utils.js'
+  import {isStored, ESC, ENTER, SPACE} from '../utils.js'
   import {fly} from 'svelte/transition'
   import swal from 'sweetalert'
   import {validate} from 'public-address-validator'
@@ -258,18 +258,22 @@
     if (swal.getState().isOpen) {
       return
     }
-    if (keyCode === 27) {
+    if (keyCode === ESC) {
       if (camera) {
         camera = false
       } else if (isStored()) {
         password = ''
         $router.replace('/')
       }
-    } else if (keyCode === 13) {
+    } else if (keyCode === ENTER) {
       if (camera) {
         camera = false
       } else {
         save()
+      }
+    } else if (keyCode === SPACE) {
+      if (camera) {
+        camera = false
       }
     }
   }
