@@ -16,6 +16,7 @@
     <p id="price">~ {unitPrice}</p>
     <div id="qr-container">
       <canvas id="qr-canvas" hidden={!qr} on:click={test}></canvas>
+      <div id="identicon"></div>
     </div>
     <div hidden={qr} id="cointext" on:click={test}>
       <div id="content">
@@ -45,7 +46,12 @@
   import {onMount} from 'svelte'
   import QrCreator from 'qr-creator'
   import { Pulse, Circle } from 'svelte-loading-spinners'
-  import {ESC, ENTER, SPACE} from '../utils.js'
+  import {ESC, ENTER, SPACE, addHexagon} from '../utils.js'
+  import Iqons from '@nimiq/iqons'
+
+  if (__ENV__ !== 'development') {
+    window.NIMIQ_IQONS_SVG_PATH = './assets/img/iqons.min.svg'
+  }
 
   let loading = true
   let qr = true
@@ -74,11 +80,27 @@
       QrCreator.render({
         text: uri,
         radius: 0.0, // 0.0 to 0.5
-        ecLevel: 'L', // L, M, Q, H
+        ecLevel: 'M', // L, M, Q, H
         fill: '#000000', // foreground color
         background: null, // color or null for transparent
         size: 256 // in pixels
       }, document.querySelector('#qr-canvas'))
+      // clear a hexagon for identicon padding
+      let ctx = document.querySelector('#qr-canvas').getContext('2d')
+      ctx.fillStyle = 'red'
+      ctx.globalCompositeOperation = 'destination-out'
+      ctx.beginPath()
+      addHexagon(ctx, {x: 128, y: 128}, 52, 12)
+      ctx.closePath()
+      ctx.fill()
+      ctx.globalCompositeOperation = 'source-over'
+    }
+    if (document.querySelector('#identicon')) {
+      // insert identicon
+      Iqons.svg(address).then(data => {
+        data = data.replace(/(width|height)="160"/g, '$1="100%"')
+        document.querySelector('#identicon').innerHTML = data
+      })
     }
   }
 
@@ -256,6 +278,15 @@
     top: 50%;
     transform: translate(-50%, -50%);
     width: 80%;
+  }
+
+  #identicon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 30%;
   }
 
   span {

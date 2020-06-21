@@ -132,9 +132,11 @@ module.exports = (env, options) => {
       }),
       new webpack.DefinePlugin({
         __BASEURL__: JSON.stringify(baseURL),
+        __ENV__: JSON.stringify(options.mode)
       }),
       new CopyPlugin(DEVELOPMENT ? [] : [
         {from: 'assets', to: 'assets'},
+        {from: './node_modules/@nimiq/iqons/dist/iqons.min.svg', to: 'assets/img'}
       ]),
       new HtmlWebpackPlugin({
         template: 'index.html'
