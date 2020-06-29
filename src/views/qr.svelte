@@ -49,7 +49,7 @@
   import {ESC, ENTER, SPACE, addHexagon} from '../utils.js'
   import Iqons from '@nimiq/iqons'
 
-  if (__ENV__ !== 'development') {
+  if (!__DEVELOPMENT__) {
     window.NIMIQ_IQONS_SVG_PATH = './assets/img/iqons.min.svg'
   }
 
@@ -75,7 +75,7 @@
   $: partial = $settings.format === 'nimiq' ? parseFloat(tx.received).toFixed(5) : (tx.received * 100000).toFixed(0)
 
   $: {
-    if (document.querySelector('#qr-canvas')) {
+    if (uri && document.querySelector('#qr-canvas') && document.querySelector('#identicon')) {
       // render qrcode
       QrCreator.render({
         text: uri,
@@ -94,13 +94,16 @@
       ctx.closePath()
       ctx.fill()
       ctx.globalCompositeOperation = 'source-over'
-    }
-    if (document.querySelector('#identicon')) {
       // insert identicon
-      Iqons.svg(address).then(data => {
-        data = data.replace(/(width|height)="160"/g, '$1="100%"')
-        document.querySelector('#identicon').innerHTML = data
-      })
+      if (loading) {
+        Iqons.svg(address).then(data => {
+          data = data.replace(/(width|height)="160"/g, '$1="100%"')
+          document.querySelector('#identicon').innerHTML = data
+          // loading is done
+          loading = false
+          loaderClasses = 'fade-out'
+        })
+      }
     }
   }
 
@@ -141,7 +144,8 @@
     console.log(`incoming: ${tx.received} to ${address}`)
     // console.log(`instantsend: ${tx.locked}`)
     // if the amount is what we're looking for (or more), show confirmed screen
-    if (tx.received >= parseFloat(price.nimiq)) {
+    let remaining = parseFloat(price.nimiq) - tx.received
+    if (remaining <= 0) {
       // customer completes transaction - we send value, IS status, local currency, qr or cointext - for analytics
       if ($router.currentRoute.query.address) {
         $router.replace(`/sale/confirmed/${status}?platform=web`)
@@ -163,7 +167,6 @@
         })
       }
     } else {
-      let remaining = parseFloat(price.nimiq) - tx.received
       // safeUrl/#_request/NQAABBBBCCCCDDDDEEEEFFFFGGGGHHHHIIII/123.12345_
       uri = `${$site.safeUrl}/#_request/${address.replace(/ /g, '')}/${remaining}_`
       // TODO: change price, debate over remaining vs received
@@ -218,9 +221,6 @@
       .catch(error => {
         console.log(`Error: ${error}`)
       })
-    // loading is done
-    loading = false
-    loaderClasses = 'fade-out'
   })
 </script>
 

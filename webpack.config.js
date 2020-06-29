@@ -132,7 +132,7 @@ module.exports = (env, options) => {
       }),
       new webpack.DefinePlugin({
         __BASEURL__: JSON.stringify(baseURL),
-        __ENV__: JSON.stringify(options.mode)
+        __DEVELOPMENT__: DEVELOPMENT
       }),
       new CopyPlugin(DEVELOPMENT ? [] : [
         {from: 'assets', to: 'assets'},

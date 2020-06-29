@@ -23,7 +23,7 @@ module.exports = {
   ],
   globals: {
     __BASEURL__: true,
-    __ENV__: true
+    __DEVELOPMENT__: true
   },
   extends: [
     'standard',

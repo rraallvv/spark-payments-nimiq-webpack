@@ -3,11 +3,13 @@
 <div in:fly={{x: 20, duration: 500}}>
   <br>
   <p>{language.payment_received}&nbsp;
+    <!--
     {#if locked === 'true'}
     <img id="lock" src="../../assets/img/locked.png" alt="Locked">
     {:else}
     <img id="lock" src="../../assets/img/unlocked.png" alt="Not Locked">
     {/if}
+    -->
   </p>
   <br>
   <img src='../../assets/img/confirm.png' alt="Confirmed">
@@ -30,7 +32,7 @@
   import swal from 'sweetalert'
   import {ESC, ENTER, SPACE} from '../utils.js'
 
-  let locked = '0'
+  // let locked = '0'
   let language = translations[$settings.language]
   let address = ''
   let web
@@ -68,7 +70,7 @@
 
   onMount(async () => {
     // set the status
-    locked = $router.currentRoute.params.status
+    // locked = $router.currentRoute.params.status
     // get address
     address = $router.currentRoute.query.address || await spark.getAddress($settings.account)
     // stop listening for tx events
@@ -90,9 +92,11 @@
     text-align: center;
     font-size: 1.85em;
   }
+  /*
   #lock {
     width: 0.76em;
   }
+  */
   /* charge button */
   button {
     font-size: 180%;
